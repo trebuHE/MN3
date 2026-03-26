@@ -33,4 +33,24 @@ function R = pagerank(B, d)
     lambda_val = (R' * M * R) / (R' * R);
     fprintf("Convergence after %i iterations\n", i);
     fprintf("Lambda value: %f \n", lambda_val);
+
+    figure;
+    bar(R, "FaceColor", [0.2 0.6 0.8]);
+    title("Wartość PageRank dla poszczególnych stron");
+    xlabel("Indeks strony");
+    ylabel("Wartość PageRank");
+    grid on;
+    xticks(1:length(R));
+
+    for it = 1:length(R)
+        text(it, R(it), num2str(R(it), '%0.4f'), ...
+            'HorizontalAlignment', 'center', ...
+            'VerticalAlignment', 'bottom', ...
+            'FontSize', 10, 'FontWeight', 'bold');
+    end
+
+    ylim([0, max(R) * 1.1]);
+
+    print("wykres_PageRank.jpeg", "-djpeg", "-r300");
 end
+
